@@ -26,7 +26,8 @@ if (incoming.length === 1 && Array.isArray(incoming[0].ads)) {
   ads = incoming.map((raw, index) => normalizeApifyItem(raw, index));
 }
 ads = ads.filter((ad) => ad && ad.primary_text && ad.started_on);
-const creatives = scoreCreatives(ads, config.asOf).map((creative) => {
+const rankSpanOverride = incoming.length === 1 ? incoming[0].rankSpan : undefined;
+const creatives = scoreCreatives(ads, config.asOf, rankSpanOverride).map((creative) => {
   const rep = ads.find((ad) => String(ad.library_id) === String(creative.representative_id)) || {};
   const split = splitCopy(creative.primary_text);
   return {
@@ -68,13 +69,13 @@ const items = $input.all().map((item) => item.json);
 let rows = items;
 if (items.length === 1 && Array.isArray(items[0])) rows = items[0];
 else if (items.length === 1 && Array.isArray(items[0].items)) rows = items[0].items;
-const ads = rows
-  .map((raw, index) => normalizeApifyItem(raw, index))
-  .filter((ad) => ad.primary_text && ad.started_on);
+const shaped = rows.map((raw, index) => normalizeApifyItem(raw, index));
+const rankSpan = shaped.reduce((span, ad) => Math.max(span, Number(ad.position) || 0), shaped.length);
+const ads = shaped.filter((ad) => ad.primary_text && ad.started_on);
 if (!ads.length) {
   throw new Error('Apify returned no ads with a primary text and a start date. Check the run, or switch Config mode to sample.');
 }
-return [{ json: { ads } }];
+return [{ json: { ads, rankSpan } }];
 """
 )
 
@@ -93,7 +94,8 @@ const instructions = [
   'angle is one of: generic_ai, mother_tongue, price, social_proof, time_bound.',
   'score_delta is an integer from -8 to 8. Use 0 unless a phrase in the primary text changes the read in a way the numbers missed.',
   'quote must be copied from primary_text. If you cannot quote, score_delta must be 0.',
-  'delta_reason is one sentence. Return JSON only.',
+  'delta_reason is one sentence.',
+  'Return one JSON object and nothing else. The object has a single key, creatives, whose value is the array. Do not return a bare array.',
 ].join(' ');
 return [{
   json: {
@@ -114,15 +116,24 @@ APPLY_JS = (
     + """
 
 const base = $('Score the pull').first().json;
+const payload = $json || {};
 let deltas = [];
 let modelError = '';
-try {
-  const parts = $json.candidates?.[0]?.content?.parts || [];
-  const text = parts.map((part) => part.text || '').join('');
-  const parsed = JSON.parse(text);
-  deltas = parsed.creatives || parsed.deltas || [];
-} catch (error) {
-  modelError = error.message || String(error);
+const httpError = payload.error;
+if (httpError) {
+  modelError = typeof httpError === 'string' ? httpError : (httpError.message || JSON.stringify(httpError));
+} else {
+  try {
+    const parts = payload.candidates?.[0]?.content?.parts || [];
+    const text = parts.map((part) => part.text || '').join('');
+    if (!text.trim()) {
+      modelError = 'Gemini returned no text. Rank left on the arithmetic.';
+    } else {
+      deltas = parseModelPayload(text);
+    }
+  } catch (error) {
+    modelError = error.message || String(error);
+  }
 }
 const creatives = applyDeltas(base.creatives, deltas).map((creative) => {
   const previous = base.creatives.find((item) => item.representative_id === creative.representative_id) || {};
@@ -157,7 +168,9 @@ for (const creative of row.creatives) {
   lines.push('## ' + creative.final_score + ' (base ' + creative.score + ', delta ' + creative.model_delta + ')');
   lines.push('Library ID ' + creative.representative_id + ', position ' + creative.best_position + ', ' + creative.copies + ' copies, ' + creative.max_days + ' days.');
   lines.push('Hook: ' + (creative.hook || ''));
+  if (creative.hook_en) lines.push('Hook in English: ' + creative.hook_en);
   lines.push('Body: ' + (creative.body || ''));
+  if (creative.body_en) lines.push('Body in English: ' + creative.body_en);
   if (creative.headline) lines.push('Headline: ' + creative.headline);
   if (creative.cta_text) lines.push('CTA: ' + creative.cta_text);
   if (creative.model_reason) lines.push('Delta reason: ' + creative.model_reason);
@@ -179,7 +192,7 @@ return [{
 """
 
 
-def node(name, type_, version, x, y, parameters, notes=""):
+def node(name, type_, version, x, y, parameters, notes="", on_error=""):
     item = {
         "id": name.lower().replace(" ", "-").replace("?", "").replace("'", "")[:48],
         "name": name,
@@ -188,6 +201,8 @@ def node(name, type_, version, x, y, parameters, notes=""):
         "position": [x, y],
         "parameters": parameters,
     }
+    if on_error:
+        item["onError"] = on_error
     if notes:
         item["notes"] = notes
         item["notesInFlow"] = True
@@ -384,9 +399,10 @@ def main() -> None:
                 "sendBody": True,
                 "specifyBody": "json",
                 "jsonBody": "={{ JSON.stringify($json.geminiBody) }}",
-                "options": {"timeout": 60000},
+                "options": {"timeout": 60000, "response": {"neverError": True}},
             },
-            "One call for the whole set. gemini-2.5-flash-lite, free tier. If this node errors, the score node above already has the rank.",
+            "One call for the whole set. A bad key, a timeout, or a 4xx still continues into the read, on the arithmetic score.",
+            "continueRegularOutput",
         ),
         node("Apply the model delta", "n8n-nodes-base.code", 2, 1640, 40, {"jsCode": APPLY_JS}),
         node(

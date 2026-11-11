@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { scoreCreatives, applyDeltas, splitCopy } from "./score_ads.mjs";
+import { scoreCreatives, applyDeltas, splitCopy, parseModelPayload } from "./score_ads.mjs";
 
 const pull = JSON.parse(readFileSync(new URL("../data/pull_2026-11-11.json", import.meta.url), "utf8"));
 const creatives = scoreCreatives(pull.ads, pull.pulled_on);
@@ -33,5 +33,35 @@ const clamped = applyDeltas(creatives, [
 ]);
 if (clamped[0].model_delta !== 8 || clamped[0].final_score !== 93) {
   throw new Error(`clamp failed ${clamped[0].model_delta} ${clamped[0].final_score}`);
+}
+const gapped = scoreCreatives(
+  [
+    {
+      library_id: "early",
+      position: 1,
+      started_on: "2026-11-01",
+      page_name: "MySivi",
+      primary_text: "Speak English fluently with the power of AI! Start at ₹1.",
+    },
+    {
+      library_id: "late",
+      position: 20,
+      started_on: "2026-11-01",
+      page_name: "MySivi",
+      primary_text: "Practice in Bangla for 15 minute every day.",
+    },
+  ],
+  "2026-11-11",
+);
+if (gapped.some((row) => row.parts.delivery < 0)) throw new Error("delivery went negative");
+if (gapped.find((row) => row.representative_id === "late").parts.delivery !== 0) {
+  throw new Error("last rank should score 0 delivery");
+}
+const wrapped = parseModelPayload('{"creatives":[{"creative_id":"1112422725088441","hook_en":"Speak","body_en":"Try"}]}');
+const bare = parseModelPayload('[{"creative_id":"1112422725088441","hook_en":"Speak","body_en":"Try ₹1"}]');
+if (wrapped.length !== 1 || bare.length !== 1) throw new Error("payload parser dropped a list");
+const translated = applyDeltas(creatives, bare);
+if (translated[0].hook_en !== "Speak" || !translated[0].body_en.includes("Try")) {
+  throw new Error("translation was dropped");
 }
 console.log("score check ok", creatives[0].representative_id, creatives[0].score);

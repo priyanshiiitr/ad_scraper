@@ -25,7 +25,7 @@ The assignment URL:
 1. Self-host n8n (`npx n8n`) or use the cloud trial. Import `workflow/mysivi_ad_library.json`.
 2. Leave **mode** as `sample` and execute. That scores the saved 11 Nov pull, spends nothing, and writes `report_markdown` on the last node. It should name library ID `1112422725088441` at 85.
 3. For a live run, paste an Apify token into **apifyToken**, set **mode** to `apify`, and set **asOf** to today. `maxAds` is 12. The actor is `curious_coder/facebook-ads-library-scraper` at its published $0.75 per 1,000 ads. The run asks for 1 GB, does not scrape EU ad details, and does not request a residential proxy.
-4. Paste a Gemini key only if you want a translation. The model is `gemini-2.5-flash-lite`. A score nudge is kept only when the model quotes the ad, and only inside −8 to +8. Leave the placeholder and the rank stays arithmetic.
+4. Paste a Gemini key only if you want a translation. The model is `gemini-2.5-flash-lite`. A score nudge is kept only when the model quotes the ad, and only inside −8 to +8. A bad key, a timeout, or a bare JSON array does not drop the read: the arithmetic rank still comes out, with the English reading attached when the model actually returned one. Leave the placeholder and the rank stays arithmetic.
 
 ## Rebuild the PDF
 

@@ -76,7 +76,17 @@ function repetitionPoints(count) {
 
 function deliveryPoints(bestPosition, nCards) {
   if (nCards <= 1) return 30;
-  return Math.round((30 * (nCards - bestPosition)) / (nCards - 1));
+  const raw = Math.round((30 * (nCards - bestPosition)) / (nCards - 1));
+  return Math.max(0, raw);
+}
+
+function rankSpan(ads, declared) {
+  let span = Math.max(ads.length, Number(declared) || 0, 1);
+  ads.forEach((ad, index) => {
+    const position = Number(ad.position) || index + 1;
+    if (position > span) span = position;
+  });
+  return span;
 }
 
 function repetitionCount(members) {
@@ -88,8 +98,8 @@ function repetitionCount(members) {
   return Math.max(rows, coll);
 }
 
-export function scoreCreatives(ads, asOf) {
-  const nCards = ads.length;
+export function scoreCreatives(ads, asOf, rankSpanOverride) {
+  const nCards = rankSpan(ads, rankSpanOverride);
   const groups = new Map();
   ads.forEach((ad, index) => {
     if (isCompetitor(ad) || !(ad.primary_text || "").trim()) return;
@@ -153,6 +163,9 @@ export function applyDeltas(creatives, deltas) {
     const delta = quoted ? Math.max(-8, Math.min(8, raw)) : 0;
     return {
       ...creative,
+      hook_en: typeof proposal.hook_en === "string" ? proposal.hook_en : creative.hook_en || "",
+      body_en: typeof proposal.body_en === "string" ? proposal.body_en : creative.body_en || "",
+      angle: typeof proposal.angle === "string" ? proposal.angle : creative.angle || "",
       model_delta: delta,
       model_reason: delta ? proposal.delta_reason || "" : "",
       final_score: Math.max(0, Math.min(100, creative.score + delta)),
@@ -162,6 +175,19 @@ export function applyDeltas(creatives, deltas) {
     (a, b) => b.final_score - a.final_score || a.best_position - b.best_position || b.max_days - a.max_days,
   );
   return adjusted;
+}
+
+export function parseModelPayload(text) {
+  const cleaned = String(text || "")
+    .trim()
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/, "");
+  if (!cleaned) return [];
+  const parsed = JSON.parse(cleaned);
+  if (Array.isArray(parsed)) return parsed;
+  if (parsed && Array.isArray(parsed.creatives)) return parsed.creatives;
+  if (parsed && Array.isArray(parsed.deltas)) return parsed.deltas;
+  return [];
 }
 
 export function splitCopy(text) {

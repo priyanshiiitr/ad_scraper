@@ -104,7 +104,21 @@ def repetition_points(count: int) -> int:
 def delivery_points(best_position: int, n_cards: int) -> int:
     if n_cards <= 1:
         return 30
-    return round(30 * (n_cards - best_position) / (n_cards - 1))
+    raw = round(30 * (n_cards - best_position) / (n_cards - 1))
+    return max(0, raw)
+
+
+def rank_span(ads: list[dict], declared: int | None = None) -> int:
+    """Scale delivery against the original sort, not the rows left after a filter.
+
+    A live scrape can drop a card with no text and keep a later position.
+    Using the filtered length as the denominator makes that position negative.
+    """
+    positions = []
+    for index, ad in enumerate(ads, start=1):
+        position = ad.get("position")
+        positions.append(int(position) if position else index)
+    return max([len(ads), declared or 0, *positions, 1])
 
 
 def repetition_count(members: list[dict]) -> int:
@@ -114,8 +128,8 @@ def repetition_count(members: list[dict]) -> int:
     return max(rows, coll)
 
 
-def score_creatives(ads: list[dict], as_of: date) -> list[dict]:
-    n_cards = len(ads)
+def score_creatives(ads: list[dict], as_of: date, rank_span_override: int | None = None) -> list[dict]:
+    n_cards = rank_span(ads, rank_span_override)
     groups: dict[str, list[dict]] = defaultdict(list)
     for index, ad in enumerate(ads, start=1):
         if is_competitor(ad) or not (ad.get("primary_text") or "").strip():

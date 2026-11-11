@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Which MySivi ad is the control</title>
+<style>
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Noto Sans", "Noto Sans Devanagari", "Noto Sans Kannada", "Noto Sans Tamil", "Noto Sans Telugu", "Noto Sans Bengali", sans-serif;
+    color: #1c1917;
+    font-size: 10.5pt;
+    line-height: 1.42;
+    background: white;
+  }
+  main { max-width: 182mm; margin: 0 auto; padding: 0; }
+  h1 { font-size: 20pt; line-height: 1.15; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 { font-size: 13pt; margin: 18px 0 6px; letter-spacing: -0.01em; }
+  h3 { font-size: 11.5pt; margin: 12px 0 4px; }
+  p { margin: 0 0 8px; }
+  a { color: #1c1917; }
+  .byline { color: #57534e; margin-bottom: 12px; }
+  .decision {
+    border: 1.5px solid #1c1917;
+    padding: 10px 12px 8px;
+    margin: 8px 0 12px;
+  }
+  .decision .id { font-size: 13pt; font-weight: 700; margin: 0 0 4px; }
+  .meta { color: #44403c; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 9.5pt; }
+  th, td { text-align: left; vertical-align: top; padding: 4px 6px; border-bottom: 1px solid #e7e5e4; }
+  th { font-size: 8.5pt; letter-spacing: 0.03em; text-transform: uppercase; color: #57534e; font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .copy { white-space: pre-wrap; background: #fafaf9; padding: 8px 10px; margin: 4px 0 6px; }
+  .reading { color: #44403c; }
+  ol { margin: 4px 0 8px; padding-left: 18px; }
+  li { margin: 0 0 6px; }
+  .small { font-size: 9.5pt; color: #44403c; }
+  code { font-family: "Noto Sans Mono", ui-monospace, monospace; font-size: 9pt; }
+</style>
+</head>
+<body>
+<main>
+  <p class="byline">Priyansh Agarwal · MySivi growth internship · 11 Nov 2026</p>
+  <h1>Which MySivi ad is the control</h1>
+  <p>Active ads in India for the exact phrase “MySivi”, sorted by total impressions. Thirty cards. Six primary texts. One of them is already the ad the account is scaling, and it is not the best written ad on the page.</p>
+
+  <div class="decision">
+    <p class="id">Best ad in this list: library ID 1112422725088441</p>
+    <p class="meta">MySivi Spoken English App. Started 21 Oct 2026 (21 days). Video. Score 85/100.</p>
+    <p><strong>Hook.</strong> 🌍 Speak English fluently with the power of AI!</p>
+    <p><strong>Body.</strong> 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬 #LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀</p>
+    <p><strong>Headline.</strong> MySivi Se Shuru Karo – Sirf ₹1 Mein Install Now</p>
+    <p><strong>CTA.</strong> Install Now, to Google Play <code>com.practice.ninja_study</code>.</p>
+    <p class="small"><a href="https://www.facebook.com/ads/library/?id=1112422725088441">https://www.facebook.com/ads/library/?id=1112422725088441</a></p>
+  </div>
+
+  <p>Same primary text is on 11 of the 30 cards, including library ID 1441789124160984, still running since 8 Apr 2026 (217 days). That older card is the survival evidence. The card at position 1 is the one this sort put first. I am naming the position-1 card as the best ad, and the sentence as the control.</p>
+
+  <h2>What “best” means</h2>
+  <p>Not the line I would brief next. The ad with the strongest public evidence that MySivi is already spending behind it.</p>
+  <p>For a commercial ad in India, the Ad Library does not show spend, CTR, or the impression count. Meta’s own help page says you can search ads that are currently active, and that spend, funding, and demographic reach are shown for ads about issues, elections, or politics. Ads delivered in the EU carry a separate transparency total. An India query does not. The URL sorts by total impressions, and the number never arrives. Position in that sort is a rank. I treated it as a rank.</p>
+  <p>Anyone who writes “this ad has 2.4 million impressions” made the number up. I did not call a model to pick the winner. The rank below is arithmetic. Gemini is in the workflow as a translator, with a score nudge capped at 8 points, and only if it quotes a phrase that is already in the ad. This PDF is the run with that nudge turned off, so you can recompute every cell.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Creative</th>
+        <th class="num">Score</th>
+        <th class="num">Delivery 30</th>
+        <th class="num">Survival 25</th>
+        <th class="num">Copies 15</th>
+        <th class="num">₹1 in text 15</th>
+        <th class="num">Specific 15</th>
+        <th class="num">If headline ₹1 counts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>English, ₹1, emoji</td><td class='num'>85</td><td class='num'>30</td><td class='num'>25</td><td class='num'>15</td><td class='num'>15</td><td class='num'>0</td><td class='num'>85</td></tr><tr><td>Kannada, 15 minutes</td><td class='num'>70</td><td class='num'>28</td><td class='num'>21</td><td class='num'>12</td><td class='num'>0</td><td class='num'>9</td><td class='num'>70</td></tr><tr><td>Bangla, 15 minutes</td><td class='num'>63</td><td class='num'>25</td><td class='num'>17</td><td class='num'>12</td><td class='num'>0</td><td class='num'>9</td><td class='num'>78</td></tr><tr><td>Tamil, proof and price</td><td class='num'>58</td><td class='num'>13</td><td class='num'>13</td><td class='num'>8</td><td class='num'>15</td><td class='num'>9</td><td class='num'>58</td></tr><tr><td>Marathi, ₹1 trial</td><td class='num'>52</td><td class='num'>26</td><td class='num'>4</td><td class='num'>4</td><td class='num'>15</td><td class='num'>3</td><td class='num'>52</td></tr><tr><td>Telugu, ₹1 trial</td><td class='num'>41</td><td class='num'>18</td><td class='num'>4</td><td class='num'>1</td><td class='num'>15</td><td class='num'>3</td><td class='num'>41</td></tr>
+    </tbody>
+  </table>
+  <p class="small">Delivery is 30 at position 1 and 0 at position 30, linear. Survival is 25 at 180 days or more, 21 at 120, 17 at 90, 13 at 60, 8 at 30, 4 at 14, else 1. Copies are 15 at 8 or more cards, 12 at 5, 8 at 3, 4 at 2, else 1. Specificity is 6 for a “15 minutes” line, 6 for a proof number, 3 for a language other than generic English, capped at 15. The last column gives 15 extra points when the primary text has no ₹1 but a headline I opened does. Order under that check: English 85, Bangla 78, Kannada 70, Tamil 58, Marathi 52, Telugu 41. The winner does not move. Bangla passes Kannada and becomes the runner-up. I am not using that column as the official score, because I opened one headline per creative, not every card.</p>
+
+  <h2>The six creatives</h2>
+  <p>Thirty cards is the wrong unit. Ranking them one by one would crown the same English sentence eleven times and call it a finding. These are the sentences.</p>
+  
+  <h3>1. English, ₹1, emoji · 85</h3>
+  <p class="small">Best position 1 · 11 cards · oldest 8 Apr 2026 (217 days) · pages: MySivi Spoken English App</p>
+  <p class="small">Delivery 30 · survival 25 · copies 15 · ₹1 in the primary text 15 · specificity 0</p>
+  <div class="copy">🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬
+#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀</div>
+  <p><strong>Hook.</strong> 🌍 Speak English fluently with the power of AI!</p>
+  <p><strong>Body.</strong> 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬 #LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀</p>
+  <p class="reading"><strong>Reading.</strong> Speak English fluently with the power of AI! Try MySivi for real progress. Start your trial now at just ₹1.</p>
+  <p><strong>Headline</strong> (library ID 1112422725088441). MySivi Se Shuru Karo – Sirf ₹1 Mein Install Now</p>
+  <p class="reading">Start with MySivi, for just ₹1. Install now.</p>
+  <p><strong>CTA.</strong> Install Now → Google Play com.practice.ninja_study</p>
+  <p class="small">Representative card 1112422725088441. Oldest card 1441789124160984. All cards: 1112422725088441, 2289226535221044, 4712975925515136, 1075292912002981, 1647372320145348, 1110017608296698, 1682105200101306, 4883925611821695, 4495327957375587, 1677648783973397, 1441789124160984.</p>
+
+
+  <h3>2. Kannada, 15 minutes · 70</h3>
+  <p class="small">Best position 3 · 7 cards · oldest 1 Jun 2026 (163 days) · pages: MySivi AI - Practice English, MySivi Spoken English App</p>
+  <p class="small">Delivery 28 · survival 21 · copies 12 · ₹1 in the primary text 0 · specificity 9</p>
+  <div class="copy">AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.</div>
+  <p><strong>Hook.</strong> AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ.</p>
+  <p><strong>Body.</strong> MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ. </p>
+  <p class="reading"><strong>Reading.</strong> The AI teacher teaches you English in Kannada. Practice on the MySivi app whenever you want, wherever you are. Practice 15 minutes a day and learn English properly.</p>
+  <p><strong>Headline</strong> (library ID 1843111363320189). English ಕಲಿಯುವುದು ಈಗ ಸುಲಭ Install Now</p>
+  <p class="reading">Learning English is easy now. Install now.</p>
+  <p><strong>CTA.</strong> Install Now → Google Play com.practice.ninja_study</p>
+  <p class="small">Representative card 1843111363320189. Oldest card 1022434796890840. All cards: 1843111363320189, 2332057630947023, 1659667758852667, 2143008939635134, 1381931963798084, 1022434796890840, 2589387908208819.</p>
+
+
+  <h3>3. Bangla, 15 minutes · 63</h3>
+  <p class="small">Best position 6 · 5 cards · oldest 10 Aug 2026 (93 days) · pages: MySivi Spoken English App</p>
+  <p class="small">Delivery 25 · survival 17 · copies 12 · ₹1 in the primary text 0 · specificity 9</p>
+  <div class="copy">AI teacher apnake Bangla te English bujhiye debe. MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben</div>
+  <p><strong>Hook.</strong> AI teacher apnake Bangla te English bujhiye debe.</p>
+  <p><strong>Body.</strong> MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben </p>
+  <p class="reading"><strong>Reading.</strong> The AI teacher will explain English to you in Bangla. You can practice on the MySivi app anytime. Just 15 minutes a day and you can speak English easily.</p>
+  <p><strong>Headline</strong> (library ID 1440471367921700). ₹1 theke English start korun Install Now</p>
+  <p class="reading">Start English from ₹1. Install now.</p>
+  <p><strong>CTA.</strong> Install Now → Google Play com.practice.ninja_study</p>
+  <p class="small">Representative card 2823814924671305. Oldest card 1440471367921700. All cards: 2823814924671305, 1425612586097152, 1391820185759089, 1440471367921700, 2179236880138594.</p>
+
+
+  <h3>4. Tamil, proof and price · 58</h3>
+  <p class="small">Best position 17 · 3 cards · oldest 22 Aug 2026 (81 days) · pages: MySivi - Best English Speaking App, MySivi AI</p>
+  <p class="small">Delivery 13 · survival 13 · copies 8 · ₹1 in the primary text 15 · specificity 9</p>
+  <div class="copy">மிகச்சிறந்த Spoken English AI Teacher-ஐ பெறுங்கள் வெறும் ₹1க்கு! ஏற்கனவே. 40 லட்சத்துக்கும் மேலானோர் MySivi-ல English கத்துக்குறாங்க. நிஜ மனிதர்களுடன் பேசி உங்க Spoken English-ஐ வளர்த்துக்கோங்க. நீங்களும் Download பண்ணி ஆரம்பிங்க.</div>
+  <p><strong>Hook.</strong> மிகச்சிறந்த Spoken English AI Teacher-ஐ பெறுங்கள் வெறும் ₹1க்கு!</p>
+  <p><strong>Body.</strong> ஏற்கனவே. 40 லட்சத்துக்கும் மேலானோர் MySivi-ல English கத்துக்குறாங்க. நிஜ மனிதர்களுடன் பேசி உங்க Spoken English-ஐ வளர்த்துக்கோங்க. நீங்களும் Download பண்ணி ஆரம்பிங்க. </p>
+  <p class="reading"><strong>Reading.</strong> Get a strong spoken-English AI teacher for just ₹1. More than 40 lakh people are already learning English on MySivi. Build your spoken English by talking to real people. Download it and start.</p>
+  <p><strong>Headline</strong> (library ID 1109916984937035). English கத்துக்க ₹1 இருந்தா போதும் Install Now</p>
+  <p class="reading">₹1 is enough to learn English. Install now.</p>
+  <p><strong>CTA.</strong> Install Now → Google Play com.practice.ninja_study</p>
+  <p class="small">Representative card 1109916984937035. Oldest card 1109916984937035. All cards: 1109916984937035, 976155715566863, 1687900116460418.</p>
+
+
+  <h3>5. Marathi, ₹1 trial · 52</h3>
+  <p class="small">Best position 5 · 2 cards · oldest 24 Oct 2026 (18 days) · pages: MySivi</p>
+  <p class="small">Delivery 26 · survival 4 · copies 4 · ₹1 in the primary text 15 · specificity 3</p>
+  <div class="copy">हुशारीनं शिका, कष्ट न करता!
+MySivi AI सोबत खरी English बोलायची प्रॅक्टिस करा.
+आजच ट्रायल सुरू करा ₹1/- ला आणि आत्मविश्वास वाढवा!</div>
+  <p><strong>Hook.</strong> हुशारीनं शिका, कष्ट न करता!</p>
+  <p><strong>Body.</strong> MySivi AI सोबत खरी English बोलायची प्रॅक्टिस करा. आजच ट्रायल सुरू करा ₹1/- ला आणि आत्मविश्वास वाढवा! </p>
+  <p class="reading"><strong>Reading.</strong> Learn it smartly, without the grind. Practice speaking real English with MySivi AI. Start the trial today for ₹1 and build your confidence.</p>
+  <p><strong>Headline</strong> (library ID 2966208700429750). MySivi सोबत सुरुवात करा – केवळ ₹1 मध्ये Install Now</p>
+  <p class="reading">Start with MySivi, in just ₹1. Install now.</p>
+  <p><strong>CTA.</strong> Install Now → Google Play com.practice.ninja_study</p>
+  <p class="small">Representative card 2966208700429750. Oldest card 2966208700429750. All cards: 2966208700429750, 1102509089424684.</p>
+
+
+  <h3>6. Telugu, ₹1 trial · 41</h3>
+  <p class="small">Best position 13 · 1 cards · oldest 23 Oct 2026 (19 days) · pages: MySivi Spoken English App</p>
+  <p class="small">Delivery 18 · survival 4 · copies 1 · ₹1 in the primary text 15 · specificity 3</p>
+  <div class="copy">ఇంగ్లీష్ నేర్చుకోవడం ఇప్పుడంత ఈజీ అయిపోయింది! ఎప్పుడైనా, ఎక్కడైనా AI సహాయంతో బాగా మాట్లాడండి.ఇప్పుడే ₹1/- తో ట్రై చేయండి!</div>
+  <p><strong>Hook.</strong> ఇంగ్లీష్ నేర్చుకోవడం ఇప్పుడంత ఈజీ అయిపోయింది!</p>
+  <p><strong>Body.</strong> ఎప్పుడైనా, ఎక్కడైనా AI సహాయంతో బాగా మాట్లాడండి.ఇప్పుడే ₹1/- తో ట్రై చేయండి! </p>
+  <p class="reading"><strong>Reading.</strong> Learning English has become this easy now. Speak well anytime, anywhere, with AI’s help. Try it now for ₹1.</p>
+  <p><strong>Headline</strong> (library ID 1461355659421928). MySivi తో ఇంగ్లీష్ నేర్చుకోండి - కేవలం ₹1 కి Install Now</p>
+  <p class="reading">Learn English with MySivi, for just ₹1. Install now.</p>
+  <p><strong>CTA.</strong> Install Now → Google Play com.practice.ninja_study</p>
+  <p class="small">Representative card 1461355659421928. Oldest card 1461355659421928. All cards: 1461355659421928.</p>
+
+
+  <h2>What I would do on Monday</h2>
+  <p>Hold the English ad as the control. Do not brief another “speak English fluently with the power of AI”. The account already has 11 live copies, and one of them has survived since April. A new adjective on that hook will not move CAC.</p>
+  <ol>
+    <li>Put library ID 1112422725088441 in the buyer’s sheet as the named control. Same headline, same Install Now, same Play listing.</li>
+    <li>Brief one Kannada test, not a new concept. Kannada is the runner-up on the official score (70) and the copy they are still launching: library ID 2589387908208819 started 4 Nov 2026, 7 days before this pull, with the same text as the 1 Jun 2026 ad. The primary text and the two headlines I opened never say ₹1. Give the Kannada writer this English line and let them write it, rather than shipping a machine translation: “40 lakh people already learn English on MySivi. Start today for ₹1. The teacher explains it in Kannada. 15 minutes a day.” Keep the 15 minutes and the mother tongue. Change the opening. Do not pause the 7-day-old ID. It has no read yet.</li>
+    <li>On the Bangla primary text, move the headline into the first line. The 10 August card already says “₹1 theke English start korun” under the video. The primary text, which is what a lot of people read before that, does not mention the price. That is a one-line edit on a creative with 5 live cards and 93 days of survival.</li>
+    <li>Leave the Marathi ads on. Two cards, both started 24 Oct 2026, best position 5. The line is specific, and the ₹1 is in the primary text as well as the headline. It does not have a 60-day read in this pull. An Airbridge teardown dated 19 October, from a 16 October library pull, said a Marathi ₹1 line was on 7 of their top 12 and that the longest ad had been live about 190 days. I do not see that older Marathi set at the top of this sort. Ask the buyer whether those ads were paused. If they were, the October note is stale and the English emoji line has taken the delivery.</li>
+    <li>Open library ID 1800149651432201 before the next scrape. It is PW Talk - English Speaking App, running since 19 Sep 2026 (53 days). The search card did not show a primary text. The detail view says: “PhysicsWallah’s PW Talk brings 24x7 English learning at a special price. Get 80% off”. There is no MySivi in that sentence, inside an exact-phrase MySivi search. Either the video names MySivi, or the match is loose. It is PhysicsWallah’s English app, at a discount. It is not a MySivi ad and it is not in the score. It is the thing I would check before I scrape this URL again.</li>
+    <li>Do not transcribe all 30 videos to answer this question. Six primary texts cover the page. Transcribe the one video you are about to shoot against, when the test needs it. The workflow leaves that as a later node, not as a bill on the free tier today.</li>
+  </ol>
+  <p>Tamil is the best written primary text in the set and the fourth score (58), because it sits at position 17 with 3 cards and 81 days. Price, then 40 lakh, then “talk to real people”, then download. That structure is what the Kannada test above is borrowing. I would not call Tamil the best ad. The sort does not support it. Telugu is one card at position 13, 19 days, price in the text and in the headline. Too thin to be a control.</p>
+
+  <h2>Every card</h2>
+  <p class="small">Position is the order the library returned. Days are counted to 11 Nov 2026. All MySivi cards were videos. “Multiple versions” was on every card, so I did not score it. Platform icons did not come through as text, so I am not claiming a Facebook versus Instagram split.</p>
+  <table>
+    <thead>
+      <tr><th class="num">#</th><th>Library ID</th><th>Started</th><th class="num">Days</th><th>Page</th><th>Creative</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class='num'>1</td><td><a href='https://www.facebook.com/ads/library/?id=1112422725088441'>1112422725088441</a></td><td>21 Oct 2026</td><td class='num'>21</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>2</td><td><a href='https://www.facebook.com/ads/library/?id=2289226535221044'>2289226535221044</a></td><td>9 Sep 2026</td><td class='num'>63</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>3</td><td><a href='https://www.facebook.com/ads/library/?id=1843111363320189'>1843111363320189</a></td><td>2 Aug 2026</td><td class='num'>101</td><td>MySivi AI - Practice English</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>4</td><td><a href='https://www.facebook.com/ads/library/?id=4712975925515136'>4712975925515136</a></td><td>11 Oct 2026</td><td class='num'>31</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>5</td><td><a href='https://www.facebook.com/ads/library/?id=2966208700429750'>2966208700429750</a></td><td>24 Oct 2026</td><td class='num'>18</td><td>MySivi</td><td>Marathi, ₹1 trial</td></tr><tr><td class='num'>6</td><td><a href='https://www.facebook.com/ads/library/?id=2823814924671305'>2823814924671305</a></td><td>25 Aug 2026</td><td class='num'>78</td><td>MySivi Spoken English App</td><td>Bangla, 15 minutes</td></tr><tr><td class='num'>7</td><td><a href='https://www.facebook.com/ads/library/?id=1425612586097152'>1425612586097152</a></td><td>30 Aug 2026</td><td class='num'>73</td><td>MySivi Spoken English App</td><td>Bangla, 15 minutes</td></tr><tr><td class='num'>8</td><td><a href='https://www.facebook.com/ads/library/?id=2332057630947023'>2332057630947023</a></td><td>29 Sep 2026</td><td class='num'>43</td><td>MySivi AI - Practice English</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>9</td><td><a href='https://www.facebook.com/ads/library/?id=1659667758852667'>1659667758852667</a></td><td>16 Oct 2026</td><td class='num'>26</td><td>MySivi AI - Practice English</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>10</td><td><a href='https://www.facebook.com/ads/library/?id=2143008939635134'>2143008939635134</a></td><td>3 Oct 2026</td><td class='num'>39</td><td>MySivi AI - Practice English</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>11</td><td><a href='https://www.facebook.com/ads/library/?id=1102509089424684'>1102509089424684</a></td><td>24 Oct 2026</td><td class='num'>18</td><td>MySivi</td><td>Marathi, ₹1 trial</td></tr><tr><td class='num'>12</td><td><a href='https://www.facebook.com/ads/library/?id=1075292912002981'>1075292912002981</a></td><td>14 Sep 2026</td><td class='num'>58</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>13</td><td><a href='https://www.facebook.com/ads/library/?id=1461355659421928'>1461355659421928</a></td><td>23 Oct 2026</td><td class='num'>19</td><td>MySivi Spoken English App</td><td>Telugu, ₹1 trial</td></tr><tr><td class='num'>14</td><td><a href='https://www.facebook.com/ads/library/?id=1647372320145348'>1647372320145348</a></td><td>14 Sep 2026</td><td class='num'>58</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>15</td><td><a href='https://www.facebook.com/ads/library/?id=1110017608296698'>1110017608296698</a></td><td>28 Oct 2026</td><td class='num'>14</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>16</td><td><a href='https://www.facebook.com/ads/library/?id=1391820185759089'>1391820185759089</a></td><td>11 Sep 2026</td><td class='num'>61</td><td>MySivi Spoken English App</td><td>Bangla, 15 minutes</td></tr><tr><td class='num'>17</td><td><a href='https://www.facebook.com/ads/library/?id=1109916984937035'>1109916984937035</a></td><td>22 Aug 2026</td><td class='num'>81</td><td>MySivi AI</td><td>Tamil, proof and price</td></tr><tr><td class='num'>18</td><td><a href='https://www.facebook.com/ads/library/?id=1682105200101306'>1682105200101306</a></td><td>18 Sep 2026</td><td class='num'>54</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>19</td><td><a href='https://www.facebook.com/ads/library/?id=1440471367921700'>1440471367921700</a></td><td>10 Aug 2026</td><td class='num'>93</td><td>MySivi Spoken English App</td><td>Bangla, 15 minutes</td></tr><tr><td class='num'>20</td><td><a href='https://www.facebook.com/ads/library/?id=4883925611821695'>4883925611821695</a></td><td>11 Oct 2026</td><td class='num'>31</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>21</td><td><a href='https://www.facebook.com/ads/library/?id=1381931963798084'>1381931963798084</a></td><td>17 Jul 2026</td><td class='num'>117</td><td>MySivi Spoken English App</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>22</td><td><a href='https://www.facebook.com/ads/library/?id=1022434796890840'>1022434796890840</a></td><td>1 Jun 2026</td><td class='num'>163</td><td>MySivi Spoken English App</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>23</td><td><a href='https://www.facebook.com/ads/library/?id=2589387908208819'>2589387908208819</a></td><td>4 Nov 2026</td><td class='num'>7</td><td>MySivi AI - Practice English</td><td>Kannada, 15 minutes</td></tr><tr><td class='num'>24</td><td><a href='https://www.facebook.com/ads/library/?id=4495327957375587'>4495327957375587</a></td><td>1 Oct 2026</td><td class='num'>41</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>25</td><td><a href='https://www.facebook.com/ads/library/?id=1677648783973397'>1677648783973397</a></td><td>11 Oct 2026</td><td class='num'>31</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr><tr><td class='num'>26</td><td><a href='https://www.facebook.com/ads/library/?id=976155715566863'>976155715566863</a></td><td>27 Sep 2026</td><td class='num'>45</td><td>MySivi - Best English Speaking App</td><td>Tamil, proof and price</td></tr><tr><td class='num'>27</td><td><a href='https://www.facebook.com/ads/library/?id=1687900116460418'>1687900116460418</a></td><td>24 Oct 2026</td><td class='num'>18</td><td>MySivi - Best English Speaking App</td><td>Tamil, proof and price</td></tr><tr><td class='num'>28</td><td><a href='https://www.facebook.com/ads/library/?id=2179236880138594'>2179236880138594</a></td><td>16 Oct 2026</td><td class='num'>26</td><td>MySivi Spoken English App</td><td>Bangla, 15 minutes</td></tr><tr><td class='num'>29</td><td><a href='https://www.facebook.com/ads/library/?id=1800149651432201'>1800149651432201</a></td><td>19 Sep 2026</td><td class='num'>53</td><td>PW Talk - English Speaking App</td><td>PW Talk, not ranked</td></tr><tr><td class='num'>30</td><td><a href='https://www.facebook.com/ads/library/?id=1441789124160984'>1441789124160984</a></td><td>8 Apr 2026</td><td class='num'>217</td><td>MySivi Spoken English App</td><td>English, ₹1, emoji</td></tr>
+    </tbody>
+  </table>
+  <p class="small">The brand is not one Facebook page. Marathi is on <a href="https://www.facebook.com/my.siviai/">facebook.com/my.siviai</a>. The Tamil card I opened is on a page called MySivi AI. English, Bangla, and the older Kannada cards are on MySivi Spoken English App. A scrape of a single page URL would have dropped either the control or the Tamil script. The assignment URL, a keyword search, is the right input. Keep it.</p>
+
+  <h2>The workflow, and what it costs</h2>
+  <p>The file to import is <code>workflow/mysivi_ad_library.json</code>. It is not the public n8n template that transcribes Facebook videos into a Google Sheet. That template is a scrape. The question on the brief is which ad is best, and a sheet does not answer it. This one scores in a Code node before a model is allowed to speak.</p>
+  <p>Config holds the assignment URL, how many ads to pull, the as-of date, and two paste fields: an Apify token and a Gemini key. Mode <code>sample</code> scores the 11 November pull stored in the workflow, which is this PDF. Mode <code>apify</code> runs <code>curious_coder/facebook-ads-library-scraper</code>, polls the run, and scores whatever comes back. Same function either way. The Python file and the Code node were checked against each other on this pull. They return the same six scores.</p>
+  <p>If the Gemini key is still the placeholder, the model is skipped and the rank stands. If a key is present, one call to <code>gemini-2.5-flash-lite</code> translates the set and may propose a delta from −8 to +8. The code keeps the delta only when the model quotes a phrase that is already in the primary text, and it clamps anything outside that range. A confident paragraph with no quote scores zero. That is the whole point of putting the model second.</p>
+  <p>I looked up the prices rather than guessing a “free stack”.</p>
+  <ul>
+    <li>Apify lists this actor at $0.75 per 1,000 dataset items. Twelve ads is under one US cent of actor fees. The workflow asks for 1 GB of memory, turns off EU ad-detail scraping (those fields are empty on an India query and they burn extra requests), and does not request a residential proxy. Residential proxies are where a free demo quietly stops being free. Apify’s free plan includes a monthly usage credit, currently published at $5. Check it the morning of the demo. Allowances move.</li>
+    <li>Google’s Gemini pricing page, updated 30 Oct 2026, lists free input and output for Gemini 2.5 Flash-Lite on the free tier. One request covers the whole page of ads. I pinned Flash-Lite rather than Flash, because Google has said <code>gemini-2.5-flash</code> routes to <code>gemini-3.5-flash-lite</code> from 1 December 2026. A failed model call must not change the rank, and in this workflow it does not.</li>
+    <li>n8n’s self-hosted edition is free to run for your own team. The nodes here are Manual Trigger, Set, IF, HTTP Request, and Code. No paid node, no Google Sheet required for the demo. <code>npx n8n</code> on a laptop is enough for the Meet. n8n Cloud’s trial works too.</li>
+  </ul>
+  <p>A few runs and a screen-share stay inside that. I would not turn the schedule on until the buyer has used the sample mode once and agreed the formula. A weekly run of 30 ads is still cents. A weekly run with video transcription of every card is a different product and a different bill, which is why it is not in this version.</p>
+
+  <h2>Why I want the seat</h2>
+  <p>I am Priyansh Agarwal. I study AI and data science at IIIT Raichur. The work I already like is the unglamorous part of this job: get the rows out of a page that does not want to give them to you, then refuse to pretend the rows say more than they do. SearchGPT, on my GitHub, is a small version of that. This assignment is the same muscle on your account.</p>
+  <p>The brief is not “use ChatGPT”. It is six months in the HSR office, next to the people buying the media, while the company tries to go from 175 crore ARR to 500 crore. The library will not tell you the CAC of the English ad against the Kannada one. It will tell you which sentence you have been willing to keep on since April, and which sentence you copied again on 4 November without the price in it. n8n is the right home for that check because the next person to press execute should be a media buyer, not me. I want that seat, on the six-day in-office terms you wrote, not a remote version of it.</p>
+
+  <h2>How to recompute this</h2>
+  <p><code>python3 analysis/build_report.py</code> reads <code>data/pull_2026-11-11.json</code> and writes this HTML. <code>node analysis/check_score.mjs</code> fails if the n8n scoring code and the Python scoring code disagree. The pull is the assignment URL, captured 11 Nov 2026. Headlines were opened that same day on library IDs 1022434796890840, 1109916984937035, 1112422725088441, 1440471367921700, 1461355659421928, 1843111363320189, 2966208700429750. I did not open every card. Where a headline is quoted, the library ID it came from is in that creative’s block.</p>
+  <p class="small">Sources. Meta Ad Library help, facebook.com/help/259468828226154. Assignment URL, in the repo README. Actor price and input, apify.com/curious_coder/facebook-ads-library-scraper. Gemini prices, ai.google.dev/gemini-api/docs/pricing, page updated 30 Oct 2026. n8n hosting, docs.n8n.io/hosting. The October comparison is Airbridge’s MySivi teardown, published 19 Oct 2026, from a library pull dated 16 Oct 2026. The Kamlesh Sawant film (Zee Business, 2 Nov 2026) is a brand story about a cop transferred to Tamil Nadu who uses Arya. It was not among these 30 active cards. I did not search inactive ads, so I am not saying the film is off. I am saying it is not what this impressions sort is delivering at the top.</p>
+</main>
+</body>
+</html>

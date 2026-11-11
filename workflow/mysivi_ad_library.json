@@ -1,0 +1,612 @@
+{
+  "name": "MySivi Ad Library — which ad is the control",
+  "nodes": [
+    {
+      "id": "when-clicking-execute-workflow",
+      "name": "When clicking Execute workflow",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -900,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "config",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        200
+      ],
+      "parameters": {
+        "options": {},
+        "assignments": {
+          "assignments": [
+            {
+              "id": "mode",
+              "name": "mode",
+              "type": "string",
+              "value": "sample"
+            },
+            {
+              "id": "url",
+              "name": "adLibraryUrl",
+              "type": "string",
+              "value": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=IN&is_targeted_country=false&media_type=all&q=%22MySivi%22&search_type=keyword_exact_phrase&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            },
+            {
+              "id": "max",
+              "name": "maxAds",
+              "type": "number",
+              "value": 12
+            },
+            {
+              "id": "asof",
+              "name": "asOf",
+              "type": "string",
+              "value": "2026-11-11"
+            },
+            {
+              "id": "apify",
+              "name": "apifyToken",
+              "type": "string",
+              "value": "PASTE_APIFY_TOKEN"
+            },
+            {
+              "id": "gemini",
+              "name": "geminiKey",
+              "type": "string",
+              "value": "PASTE_GEMINI_KEY"
+            },
+            {
+              "id": "model",
+              "name": "geminiModel",
+              "type": "string",
+              "value": "gemini-2.5-flash-lite"
+            }
+          ]
+        }
+      },
+      "notes": "mode sample scores the saved 11 Nov pull and spends nothing. mode apify runs a live scrape. Set asOf to the day you run a live pull. Leave the Gemini placeholder to skip the model.",
+      "notesInFlow": true
+    },
+    {
+      "id": "sample-or-live",
+      "name": "Sample or live?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        200
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "mode-apify",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "apify",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "load-11-nov-pull",
+      "name": "Load 11 Nov pull",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        420
+      ],
+      "parameters": {
+        "jsCode": "const ads = [{\"library_id\":\"1112422725088441\",\"position\":1,\"started_on\":\"2026-10-21\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"MySivi Se Shuru Karo – Sirf ₹1 Mein Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"page_url\":\"https://www.facebook.com/61584601834661/\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"2289226535221044\",\"position\":2,\"started_on\":\"2026-09-09\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1843111363320189\",\"position\":3,\"started_on\":\"2026-08-02\",\"page_name\":\"MySivi AI - Practice English\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"English ಕಲಿಯುವುದು ಈಗ ಸುಲಭ Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"4712975925515136\",\"position\":4,\"started_on\":\"2026-10-11\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"2966208700429750\",\"position\":5,\"started_on\":\"2026-10-24\",\"page_name\":\"MySivi\",\"primary_text\":\"हुशारीनं शिका, कष्ट न करता!\\nMySivi AI सोबत खरी English बोलायची प्रॅक्टिस करा.\\nआजच ट्रायल सुरू करा ₹1/- ला आणि आत्मविश्वास वाढवा!\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"MySivi सोबत सुरुवात करा – केवळ ₹1 मध्ये Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"page_url\":\"https://www.facebook.com/my.siviai/\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"2823814924671305\",\"position\":6,\"started_on\":\"2026-08-25\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI teacher apnake Bangla te English bujhiye debe. MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1425612586097152\",\"position\":7,\"started_on\":\"2026-08-30\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI teacher apnake Bangla te English bujhiye debe. MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"2332057630947023\",\"position\":8,\"started_on\":\"2026-09-29\",\"page_name\":\"MySivi AI - Practice English\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1659667758852667\",\"position\":9,\"started_on\":\"2026-10-16\",\"page_name\":\"MySivi AI - Practice English\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"2143008939635134\",\"position\":10,\"started_on\":\"2026-10-03\",\"page_name\":\"MySivi AI - Practice English\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1102509089424684\",\"position\":11,\"started_on\":\"2026-10-24\",\"page_name\":\"MySivi\",\"primary_text\":\"हुशारीनं शिका, कष्ट न करता!\\nMySivi AI सोबत खरी English बोलायची प्रॅक्टिस करा.\\nआजच ट्रायल सुरू करा ₹1/- ला आणि आत्मविश्वास वाढवा!\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1075292912002981\",\"position\":12,\"started_on\":\"2026-09-14\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1461355659421928\",\"position\":13,\"started_on\":\"2026-10-23\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"ఇంగ్లీష్ నేర్చుకోవడం ఇప్పుడంత ఈజీ అయిపోయింది! ఎప్పుడైనా, ఎక్కడైనా AI సహాయంతో బాగా మాట్లాడండి.ఇప్పుడే ₹1/- తో ట్రై చేయండి!\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"MySivi తో ఇంగ్లీష్ నేర్చుకోండి - కేవలం ₹1 కి Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"1647372320145348\",\"position\":14,\"started_on\":\"2026-09-14\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1110017608296698\",\"position\":15,\"started_on\":\"2026-10-28\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1391820185759089\",\"position\":16,\"started_on\":\"2026-09-11\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI teacher apnake Bangla te English bujhiye debe. MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1109916984937035\",\"position\":17,\"started_on\":\"2026-08-22\",\"page_name\":\"MySivi AI\",\"primary_text\":\"மிகச்சிறந்த Spoken English AI Teacher-ஐ பெறுங்கள் வெறும் ₹1க்கு! ஏற்கனவே. 40 லட்சத்துக்கும் மேலானோர் MySivi-ல English கத்துக்குறாங்க. நிஜ மனிதர்களுடன் பேசி உங்க Spoken English-ஐ வளர்த்துக்கோங்க. நீங்களும் Download பண்ணி ஆரம்பிங்க.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"English கத்துக்க ₹1 இருந்தா போதும் Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"page_url\":\"https://www.facebook.com/61590073214459/\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"1682105200101306\",\"position\":18,\"started_on\":\"2026-09-18\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1440471367921700\",\"position\":19,\"started_on\":\"2026-08-10\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI teacher apnake Bangla te English bujhiye debe. MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"₹1 theke English start korun Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"page_url\":\"https://www.facebook.com/61584601834661/\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"4883925611821695\",\"position\":20,\"started_on\":\"2026-10-11\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1381931963798084\",\"position\":21,\"started_on\":\"2026-07-17\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1022434796890840\",\"position\":22,\"started_on\":\"2026-06-01\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"headline\":\"English ಕಲಿಯುವುದು ಈಗ ಸುಲಭ Install Now\",\"cta_text\":\"Install Now\",\"link_url\":\"https://play.google.com/store/apps/details?id=com.practice.ninja_study\",\"text_from\":\"search_card\",\"headline_from\":\"detail_page\"},{\"library_id\":\"2589387908208819\",\"position\":23,\"started_on\":\"2026-11-04\",\"page_name\":\"MySivi AI - Practice English\",\"primary_text\":\"AI ಟೀಚರ್ ನಿಮಗೆ ಕನ್ನಡದಲ್ಲಿ English ಕಲಿಸುತ್ತದೆ. MySivi ಆಪ್‌ನಲ್ಲಿ ಯಾವಾಗ ಬೇಕಾದರೂ, ಎಲ್ಲಿಯಾದರೂ practice ಮಾಡಿ. ದಿನಕ್ಕೆ 15 ನಿಮಿಷ practice ಮಾಡಿ, English ಚೆನ್ನಾಗಿ ಕಲಿಯಿರಿ.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"4495327957375587\",\"position\":24,\"started_on\":\"2026-10-01\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1677648783973397\",\"position\":25,\"started_on\":\"2026-10-11\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"976155715566863\",\"position\":26,\"started_on\":\"2026-09-27\",\"page_name\":\"MySivi - Best English Speaking App\",\"primary_text\":\"மிகச்சிறந்த Spoken English AI Teacher-ஐ பெறுங்கள் வெறும் ₹1க்கு! ஏற்கனவே. 40 லட்சத்துக்கும் மேலானோர் MySivi-ல English கத்துக்குறாங்க. நிஜ மனிதர்களுடன் பேசி உங்க Spoken English-ஐ வளர்த்துக்கோங்க. நீங்களும் Download பண்ணி ஆரம்பிங்க.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1687900116460418\",\"position\":27,\"started_on\":\"2026-10-24\",\"page_name\":\"MySivi - Best English Speaking App\",\"primary_text\":\"மிகச்சிறந்த Spoken English AI Teacher-ஐ பெறுங்கள் வெறும் ₹1க்கு! ஏற்கனவே. 40 லட்சத்துக்கும் மேலானோர் MySivi-ல English கத்துக்குறாங்க. நிஜ மனிதர்களுடன் பேசி உங்க Spoken English-ஐ வளர்த்துக்கோங்க. நீங்களும் Download பண்ணி ஆரம்பிங்க.\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"2179236880138594\",\"position\":28,\"started_on\":\"2026-10-16\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"AI teacher apnake Bangla te English bujhiye debe. MySivi app e jekono time practice korte parben. Dine just 15 minute practice korlei easily English bolte parben\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"},{\"library_id\":\"1800149651432201\",\"position\":29,\"started_on\":\"2026-09-19\",\"page_name\":\"PW Talk - English Speaking App\",\"primary_text\":\"PhysicsWallah’s PW Talk brings 24x7 English learning at a special price. Get 80% off\",\"is_video\":false,\"multiple_versions\":true,\"is_active\":true,\"search_card_text\":\"\",\"text_from\":\"detail_page\",\"page_url\":\"https://www.facebook.com/61591451905204/\"},{\"library_id\":\"1441789124160984\",\"position\":30,\"started_on\":\"2026-04-08\",\"page_name\":\"MySivi Spoken English App\",\"primary_text\":\"🌍 Speak English fluently with the power of AI! 🧠 Try MySivi for real progress. Start your trial now at just ₹1/-! 🔓💬\\n#LearnEnglish #AIpowered #MySivi #FluencyJourney 🚀\",\"is_video\":true,\"multiple_versions\":true,\"is_active\":true,\"text_from\":\"search_card\"}];\nreturn [{ json: { ads } }];\n"
+      },
+      "notes": "The pull behind the PDF. No token, no model.",
+      "notesInFlow": true
+    },
+    {
+      "id": "start-apify-run",
+      "name": "Start Apify run",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        40
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.apify.com/v2/acts/curious_coder~facebook-ads-library-scraper/runs?waitForFinish=60&memory=1024&timeout=300&token={{ $('Config').first().json.apifyToken }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ urls: [{ url: $('Config').first().json.adLibraryUrl }], count: Number($('Config').first().json.maxAds), limitPerSource: Number($('Config').first().json.maxAds), scrapeAdDetails: false }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "notes": "1 GB, no EU detail scrape, no residential proxy. Twelve ads is under one cent of the actor's published per-item price.",
+      "notesInFlow": true
+    },
+    {
+      "id": "run-succeeded",
+      "name": "Run succeeded?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        20,
+        40
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "status-ok",
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "SUCCEEDED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-died",
+      "name": "Run died?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        20,
+        260
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "status-dead",
+              "leftValue": "={{ ['FAILED', 'ABORTED', 'TIMED-OUT'].includes($json.data.status) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "poll-apify-run",
+      "name": "Poll Apify run",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        420
+      ],
+      "parameters": {
+        "url": "=https://api.apify.com/v2/actor-runs/{{ $json.data.id }}?waitForFinish=60&token={{ $('Config').first().json.apifyToken }}",
+        "options": {
+          "timeout": 120000
+        }
+      }
+    },
+    {
+      "id": "run-failed",
+      "name": "Run failed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        260
+      ],
+      "parameters": {
+        "jsCode": "\nconst status = $json.data && $json.data.status ? $json.data.status : 'UNKNOWN';\nreturn [{\n  json: {\n    error: 'Apify run ended as ' + status + '. Open the run in the Apify console. Config mode sample still scores the 11 Nov pull with no token.',\n    status,\n  },\n}];\n"
+      }
+    },
+    {
+      "id": "fetch-dataset-items",
+      "name": "Fetch dataset items",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        40
+      ],
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items?clean=true&token={{ $('Config').first().json.apifyToken }}",
+        "options": {
+          "timeout": 60000
+        }
+      }
+    },
+    {
+      "id": "shape-apify-rows",
+      "name": "Shape Apify rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        40
+      ],
+      "parameters": {
+        "jsCode": "/**\n * Same scoring rules as analysis/score_ads.py.\n * Kept in JS because the n8n Code node runs this, not Python.\n */\n\nconst REGIONAL = /[\\u0900-\\u0D7F]/;\nconst NAMED_LANGUAGE = /\\b(bangla|kannada|tamil|telugu|marathi|hindi)\\b/i;\nconst RUPEE_ONE = /(?:₹|rs\\.?)\\s*1(?!\\d)/i;\nconst TIME_15 = /15\\s*(?:minute|min|ನಿಮಿಷ)/i;\nconst PROOF_LAKH = /லட்ச|lakh/i;\n\nfunction parseDay(value) {\n  return new Date(`${String(value).slice(0, 10)}T00:00:00Z`);\n}\n\nfunction daysLive(startedOn, asOf) {\n  const ms = parseDay(asOf) - parseDay(startedOn);\n  return Math.round(ms / 86400000);\n}\n\nfunction normalizeCopy(text) {\n  let out = \"\";\n  for (const ch of text || \"\") {\n    if (ch === \"\\uFE0F\" || ch === \"\\u200D\") continue;\n    const code = ch.codePointAt(0);\n    // Emoji and other symbols. Letters, including Indic, stay.\n    if (\n      (code >= 0x1f000 && code <= 0x1faff) ||\n      (code >= 0x2600 && code <= 0x27bf) ||\n      (code >= 0x2300 && code <= 0x23ff) ||\n      code === 0xfe0f ||\n      code === 0x200d\n    ) {\n      continue;\n    }\n    out += ch;\n  }\n  return out.replace(/\\s+/g, \" \").trim().toLowerCase();\n}\n\nfunction isCompetitor(ad) {\n  const name = (ad.page_name || \"\").toLowerCase();\n  const text = (ad.primary_text || \"\").toLowerCase();\n  return name.includes(\"pw talk\") || text.includes(\"physicswallah\");\n}\n\nfunction hasRupeeOne(text) {\n  return RUPEE_ONE.test(text || \"\");\n}\n\nfunction specificity(text) {\n  let score = 0;\n  if (TIME_15.test(text || \"\")) score += 6;\n  if (PROOF_LAKH.test(text || \"\") && /40/.test(text || \"\")) score += 6;\n  if (REGIONAL.test(text || \"\") || NAMED_LANGUAGE.test(text || \"\")) score += 3;\n  return Math.min(15, score);\n}\n\nfunction survivalPoints(days) {\n  if (days >= 180) return 25;\n  if (days >= 120) return 21;\n  if (days >= 90) return 17;\n  if (days >= 60) return 13;\n  if (days >= 30) return 8;\n  if (days >= 14) return 4;\n  return 1;\n}\n\nfunction repetitionPoints(count) {\n  if (count >= 8) return 15;\n  if (count >= 5) return 12;\n  if (count >= 3) return 8;\n  if (count >= 2) return 4;\n  return 1;\n}\n\nfunction deliveryPoints(bestPosition, nCards) {\n  if (nCards <= 1) return 30;\n  const raw = Math.round((30 * (nCards - bestPosition)) / (nCards - 1));\n  return Math.max(0, raw);\n}\n\nfunction rankSpan(ads, declared) {\n  let span = Math.max(ads.length, Number(declared) || 0, 1);\n  ads.forEach((ad, index) => {\n    const position = Number(ad.position) || index + 1;\n    if (position > span) span = position;\n  });\n  return span;\n}\n\nfunction repetitionCount(members) {\n  const rows = members.length;\n  const coll = members.reduce((max, member) => {\n    const value = Number(member.collation_count) || 0;\n    return value > max ? value : max;\n  }, 0);\n  return Math.max(rows, coll);\n}\n\nfunction scoreCreatives(ads, asOf, rankSpanOverride) {\n  const nCards = rankSpan(ads, rankSpanOverride);\n  const groups = new Map();\n  ads.forEach((ad, index) => {\n    if (isCompetitor(ad) || !(ad.primary_text || \"\").trim()) return;\n    const positioned = ad.position ? ad : { ...ad, position: index + 1 };\n    const key = normalizeCopy(positioned.primary_text);\n    if (!groups.has(key)) groups.set(key, []);\n    groups.get(key).push(positioned);\n  });\n\n  const creatives = [];\n  for (const [key, members] of groups) {\n    const rep = members.reduce((a, b) => (a.position < b.position ? a : b));\n    const oldest = members.reduce((a, b) => {\n      if (a.started_on !== b.started_on) return a.started_on < b.started_on ? a : b;\n      return a.position <= b.position ? a : b;\n    });\n    const text = rep.primary_text;\n    const maxDays = Math.max(...members.map((m) => daysLive(m.started_on, asOf)));\n    const copies = repetitionCount(members);\n    const parts = {\n      delivery: deliveryPoints(rep.position, nCards),\n      survival: survivalPoints(maxDays),\n      repetition: repetitionPoints(copies),\n      offer: hasRupeeOne(text) ? 15 : 0,\n      specificity: specificity(text),\n    };\n    creatives.push({\n      copy_key: key,\n      primary_text: text,\n      score: Object.values(parts).reduce((sum, n) => sum + n, 0),\n      parts,\n      best_position: rep.position,\n      representative_id: String(rep.library_id),\n      oldest_id: String(oldest.library_id),\n      oldest_started_on: oldest.started_on,\n      max_days: maxDays,\n      copies,\n      library_ids: members\n        .slice()\n        .sort((a, b) => a.position - b.position)\n        .map((m) => String(m.library_id)),\n      pages: [...new Set(members.map((m) => m.page_name || \"\"))].sort(),\n      headline_has_rupee: members.some((m) => hasRupeeOne(m.headline || \"\")),\n    });\n  }\n  creatives.sort((a, b) => b.score - a.score || a.best_position - b.best_position || b.max_days - a.max_days);\n  return creatives;\n}\n\nfunction applyDeltas(creatives, deltas) {\n  const byId = new Map();\n  for (const item of deltas || []) {\n    if (item.creative_id) byId.set(String(item.creative_id), item);\n  }\n  const adjusted = creatives.map((creative) => {\n    const proposal = byId.get(creative.representative_id) || byId.get(creative.copy_key) || {};\n    let raw = Number.parseInt(proposal.score_delta, 10);\n    if (Number.isNaN(raw)) raw = 0;\n    const quote = String(proposal.quote || \"\").trim();\n    const quoted = quote && creative.primary_text.toLowerCase().includes(quote.toLowerCase());\n    const delta = quoted ? Math.max(-8, Math.min(8, raw)) : 0;\n    return {\n      ...creative,\n      hook_en: typeof proposal.hook_en === \"string\" ? proposal.hook_en : creative.hook_en || \"\",\n      body_en: typeof proposal.body_en === \"string\" ? proposal.body_en : creative.body_en || \"\",\n      angle: typeof proposal.angle === \"string\" ? proposal.angle : creative.angle || \"\",\n      model_delta: delta,\n      model_reason: delta ? proposal.delta_reason || \"\" : \"\",\n      final_score: Math.max(0, Math.min(100, creative.score + delta)),\n    };\n  });\n  adjusted.sort(\n    (a, b) => b.final_score - a.final_score || a.best_position - b.best_position || b.max_days - a.max_days,\n  );\n  return adjusted;\n}\n\nfunction parseModelPayload(text) {\n  const cleaned = String(text || \"\")\n    .trim()\n    .replace(/^```(?:json)?\\s*/i, \"\")\n    .replace(/\\s*```$/, \"\");\n  if (!cleaned) return [];\n  const parsed = JSON.parse(cleaned);\n  if (Array.isArray(parsed)) return parsed;\n  if (parsed && Array.isArray(parsed.creatives)) return parsed.creatives;\n  if (parsed && Array.isArray(parsed.deltas)) return parsed.deltas;\n  return [];\n}\n\nfunction splitCopy(text) {\n  const lines = String(text || \"\")\n    .split(\"\\n\")\n    .map((line) => line.trim())\n    .filter(Boolean);\n  const tags = lines.filter((line) => line.startsWith(\"#\") || (line.split(\"#\").length - 1 >= 2 && line.length < 90));\n  const main = lines.filter((line) => !tags.includes(line));\n  const blob = main.join(\" \");\n  const parts = blob.split(/(?<=[!?।])\\s+|(?<=\\.)\\s+/);\n  return {\n    hook: (parts[0] || \"\").trim(),\n    body: parts.slice(1).join(\" \").trim(),\n    hashtags: tags.join(\" \"),\n  };\n}\n\nfunction normalizeApifyItem(raw, index) {\n  const snap = raw.snapshot || {};\n  const bodyObj = snap.body;\n  let body = \"\";\n  if (typeof bodyObj === \"string\") body = bodyObj;\n  else if (bodyObj && typeof bodyObj.text === \"string\") body = bodyObj.text;\n  const cards = Array.isArray(snap.cards) ? snap.cards : [];\n  const card = cards[0] || {};\n  if (!body && card.body) body = card.body;\n  let started = raw.start_date_formatted || raw.started_on || null;\n  if (!started && typeof raw.start_date === \"number\") {\n    started = new Date(raw.start_date * 1000).toISOString().slice(0, 10);\n  }\n  const videos = snap.videos || card.video_hd_url || card.video_sd_url;\n  return {\n    library_id: String(raw.ad_archive_id || raw.adArchiveID || raw.library_id || \"\"),\n    position: Number(raw.position) || index + 1,\n    started_on: started ? String(started).slice(0, 10) : null,\n    page_name: raw.page_name || snap.page_name || card.title || \"\",\n    primary_text: String(body || \"\").trim(),\n    headline: snap.title || card.title || raw.headline || \"\",\n    cta_text: snap.cta_text || card.cta_text || raw.cta_text || \"\",\n    cta_type: snap.cta_type || card.cta_type || \"\",\n    link_url: snap.link_url || card.link_url || \"\",\n    is_video: String(snap.display_format || \"\").toUpperCase() === \"VIDEO\" || Boolean(videos),\n    collation_count: raw.collation_count || raw.collationCount || null,\n    is_active: raw.is_active !== false,\n  };\n}\n\n\nconst items = $input.all().map((item) => item.json);\nlet rows = items;\nif (items.length === 1 && Array.isArray(items[0])) rows = items[0];\nelse if (items.length === 1 && Array.isArray(items[0].items)) rows = items[0].items;\nconst shaped = rows.map((raw, index) => normalizeApifyItem(raw, index));\nconst rankSpan = shaped.reduce((span, ad) => Math.max(span, Number(ad.position) || 0), shaped.length);\nconst ads = shaped.filter((ad) => ad.primary_text && ad.started_on);\nif (!ads.length) {\n  throw new Error('Apify returned no ads with a primary text and a start date. Check the run, or switch Config mode to sample.');\n}\nreturn [{ json: { ads, rankSpan } }];\n"
+      }
+    },
+    {
+      "id": "score-the-pull",
+      "name": "Score the pull",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        200
+      ],
+      "parameters": {
+        "jsCode": "/**\n * Same scoring rules as analysis/score_ads.py.\n * Kept in JS because the n8n Code node runs this, not Python.\n */\n\nconst REGIONAL = /[\\u0900-\\u0D7F]/;\nconst NAMED_LANGUAGE = /\\b(bangla|kannada|tamil|telugu|marathi|hindi)\\b/i;\nconst RUPEE_ONE = /(?:₹|rs\\.?)\\s*1(?!\\d)/i;\nconst TIME_15 = /15\\s*(?:minute|min|ನಿಮಿಷ)/i;\nconst PROOF_LAKH = /லட்ச|lakh/i;\n\nfunction parseDay(value) {\n  return new Date(`${String(value).slice(0, 10)}T00:00:00Z`);\n}\n\nfunction daysLive(startedOn, asOf) {\n  const ms = parseDay(asOf) - parseDay(startedOn);\n  return Math.round(ms / 86400000);\n}\n\nfunction normalizeCopy(text) {\n  let out = \"\";\n  for (const ch of text || \"\") {\n    if (ch === \"\\uFE0F\" || ch === \"\\u200D\") continue;\n    const code = ch.codePointAt(0);\n    // Emoji and other symbols. Letters, including Indic, stay.\n    if (\n      (code >= 0x1f000 && code <= 0x1faff) ||\n      (code >= 0x2600 && code <= 0x27bf) ||\n      (code >= 0x2300 && code <= 0x23ff) ||\n      code === 0xfe0f ||\n      code === 0x200d\n    ) {\n      continue;\n    }\n    out += ch;\n  }\n  return out.replace(/\\s+/g, \" \").trim().toLowerCase();\n}\n\nfunction isCompetitor(ad) {\n  const name = (ad.page_name || \"\").toLowerCase();\n  const text = (ad.primary_text || \"\").toLowerCase();\n  return name.includes(\"pw talk\") || text.includes(\"physicswallah\");\n}\n\nfunction hasRupeeOne(text) {\n  return RUPEE_ONE.test(text || \"\");\n}\n\nfunction specificity(text) {\n  let score = 0;\n  if (TIME_15.test(text || \"\")) score += 6;\n  if (PROOF_LAKH.test(text || \"\") && /40/.test(text || \"\")) score += 6;\n  if (REGIONAL.test(text || \"\") || NAMED_LANGUAGE.test(text || \"\")) score += 3;\n  return Math.min(15, score);\n}\n\nfunction survivalPoints(days) {\n  if (days >= 180) return 25;\n  if (days >= 120) return 21;\n  if (days >= 90) return 17;\n  if (days >= 60) return 13;\n  if (days >= 30) return 8;\n  if (days >= 14) return 4;\n  return 1;\n}\n\nfunction repetitionPoints(count) {\n  if (count >= 8) return 15;\n  if (count >= 5) return 12;\n  if (count >= 3) return 8;\n  if (count >= 2) return 4;\n  return 1;\n}\n\nfunction deliveryPoints(bestPosition, nCards) {\n  if (nCards <= 1) return 30;\n  const raw = Math.round((30 * (nCards - bestPosition)) / (nCards - 1));\n  return Math.max(0, raw);\n}\n\nfunction rankSpan(ads, declared) {\n  let span = Math.max(ads.length, Number(declared) || 0, 1);\n  ads.forEach((ad, index) => {\n    const position = Number(ad.position) || index + 1;\n    if (position > span) span = position;\n  });\n  return span;\n}\n\nfunction repetitionCount(members) {\n  const rows = members.length;\n  const coll = members.reduce((max, member) => {\n    const value = Number(member.collation_count) || 0;\n    return value > max ? value : max;\n  }, 0);\n  return Math.max(rows, coll);\n}\n\nfunction scoreCreatives(ads, asOf, rankSpanOverride) {\n  const nCards = rankSpan(ads, rankSpanOverride);\n  const groups = new Map();\n  ads.forEach((ad, index) => {\n    if (isCompetitor(ad) || !(ad.primary_text || \"\").trim()) return;\n    const positioned = ad.position ? ad : { ...ad, position: index + 1 };\n    const key = normalizeCopy(positioned.primary_text);\n    if (!groups.has(key)) groups.set(key, []);\n    groups.get(key).push(positioned);\n  });\n\n  const creatives = [];\n  for (const [key, members] of groups) {\n    const rep = members.reduce((a, b) => (a.position < b.position ? a : b));\n    const oldest = members.reduce((a, b) => {\n      if (a.started_on !== b.started_on) return a.started_on < b.started_on ? a : b;\n      return a.position <= b.position ? a : b;\n    });\n    const text = rep.primary_text;\n    const maxDays = Math.max(...members.map((m) => daysLive(m.started_on, asOf)));\n    const copies = repetitionCount(members);\n    const parts = {\n      delivery: deliveryPoints(rep.position, nCards),\n      survival: survivalPoints(maxDays),\n      repetition: repetitionPoints(copies),\n      offer: hasRupeeOne(text) ? 15 : 0,\n      specificity: specificity(text),\n    };\n    creatives.push({\n      copy_key: key,\n      primary_text: text,\n      score: Object.values(parts).reduce((sum, n) => sum + n, 0),\n      parts,\n      best_position: rep.position,\n      representative_id: String(rep.library_id),\n      oldest_id: String(oldest.library_id),\n      oldest_started_on: oldest.started_on,\n      max_days: maxDays,\n      copies,\n      library_ids: members\n        .slice()\n        .sort((a, b) => a.position - b.position)\n        .map((m) => String(m.library_id)),\n      pages: [...new Set(members.map((m) => m.page_name || \"\"))].sort(),\n      headline_has_rupee: members.some((m) => hasRupeeOne(m.headline || \"\")),\n    });\n  }\n  creatives.sort((a, b) => b.score - a.score || a.best_position - b.best_position || b.max_days - a.max_days);\n  return creatives;\n}\n\nfunction applyDeltas(creatives, deltas) {\n  const byId = new Map();\n  for (const item of deltas || []) {\n    if (item.creative_id) byId.set(String(item.creative_id), item);\n  }\n  const adjusted = creatives.map((creative) => {\n    const proposal = byId.get(creative.representative_id) || byId.get(creative.copy_key) || {};\n    let raw = Number.parseInt(proposal.score_delta, 10);\n    if (Number.isNaN(raw)) raw = 0;\n    const quote = String(proposal.quote || \"\").trim();\n    const quoted = quote && creative.primary_text.toLowerCase().includes(quote.toLowerCase());\n    const delta = quoted ? Math.max(-8, Math.min(8, raw)) : 0;\n    return {\n      ...creative,\n      hook_en: typeof proposal.hook_en === \"string\" ? proposal.hook_en : creative.hook_en || \"\",\n      body_en: typeof proposal.body_en === \"string\" ? proposal.body_en : creative.body_en || \"\",\n      angle: typeof proposal.angle === \"string\" ? proposal.angle : creative.angle || \"\",\n      model_delta: delta,\n      model_reason: delta ? proposal.delta_reason || \"\" : \"\",\n      final_score: Math.max(0, Math.min(100, creative.score + delta)),\n    };\n  });\n  adjusted.sort(\n    (a, b) => b.final_score - a.final_score || a.best_position - b.best_position || b.max_days - a.max_days,\n  );\n  return adjusted;\n}\n\nfunction parseModelPayload(text) {\n  const cleaned = String(text || \"\")\n    .trim()\n    .replace(/^```(?:json)?\\s*/i, \"\")\n    .replace(/\\s*```$/, \"\");\n  if (!cleaned) return [];\n  const parsed = JSON.parse(cleaned);\n  if (Array.isArray(parsed)) return parsed;\n  if (parsed && Array.isArray(parsed.creatives)) return parsed.creatives;\n  if (parsed && Array.isArray(parsed.deltas)) return parsed.deltas;\n  return [];\n}\n\nfunction splitCopy(text) {\n  const lines = String(text || \"\")\n    .split(\"\\n\")\n    .map((line) => line.trim())\n    .filter(Boolean);\n  const tags = lines.filter((line) => line.startsWith(\"#\") || (line.split(\"#\").length - 1 >= 2 && line.length < 90));\n  const main = lines.filter((line) => !tags.includes(line));\n  const blob = main.join(\" \");\n  const parts = blob.split(/(?<=[!?।])\\s+|(?<=\\.)\\s+/);\n  return {\n    hook: (parts[0] || \"\").trim(),\n    body: parts.slice(1).join(\" \").trim(),\n    hashtags: tags.join(\" \"),\n  };\n}\n\nfunction normalizeApifyItem(raw, index) {\n  const snap = raw.snapshot || {};\n  const bodyObj = snap.body;\n  let body = \"\";\n  if (typeof bodyObj === \"string\") body = bodyObj;\n  else if (bodyObj && typeof bodyObj.text === \"string\") body = bodyObj.text;\n  const cards = Array.isArray(snap.cards) ? snap.cards : [];\n  const card = cards[0] || {};\n  if (!body && card.body) body = card.body;\n  let started = raw.start_date_formatted || raw.started_on || null;\n  if (!started && typeof raw.start_date === \"number\") {\n    started = new Date(raw.start_date * 1000).toISOString().slice(0, 10);\n  }\n  const videos = snap.videos || card.video_hd_url || card.video_sd_url;\n  return {\n    library_id: String(raw.ad_archive_id || raw.adArchiveID || raw.library_id || \"\"),\n    position: Number(raw.position) || index + 1,\n    started_on: started ? String(started).slice(0, 10) : null,\n    page_name: raw.page_name || snap.page_name || card.title || \"\",\n    primary_text: String(body || \"\").trim(),\n    headline: snap.title || card.title || raw.headline || \"\",\n    cta_text: snap.cta_text || card.cta_text || raw.cta_text || \"\",\n    cta_type: snap.cta_type || card.cta_type || \"\",\n    link_url: snap.link_url || card.link_url || \"\",\n    is_video: String(snap.display_format || \"\").toUpperCase() === \"VIDEO\" || Boolean(videos),\n    collation_count: raw.collation_count || raw.collationCount || null,\n    is_active: raw.is_active !== false,\n  };\n}\n\n\nconst config = $('Config').first().json;\nconst incoming = $input.all().map((item) => item.json);\nlet ads;\nif (incoming.length === 1 && Array.isArray(incoming[0].ads)) {\n  ads = incoming[0].ads;\n} else {\n  ads = incoming.map((raw, index) => normalizeApifyItem(raw, index));\n}\nads = ads.filter((ad) => ad && ad.primary_text && ad.started_on);\nconst rankSpanOverride = incoming.length === 1 ? incoming[0].rankSpan : undefined;\nconst creatives = scoreCreatives(ads, config.asOf, rankSpanOverride).map((creative) => {\n  const rep = ads.find((ad) => String(ad.library_id) === String(creative.representative_id)) || {};\n  const split = splitCopy(creative.primary_text);\n  return {\n    ...creative,\n    hook: split.hook,\n    body: split.body,\n    hashtags: split.hashtags,\n    headline: rep.headline || '',\n    cta_text: rep.cta_text || '',\n    link_url: rep.link_url || '',\n    model_delta: 0,\n    model_reason: '',\n    final_score: creative.score,\n  };\n});\nconst winner = creatives[0] || null;\nreturn [{\n  json: {\n    as_of: config.asOf,\n    mode: config.mode,\n    geminiKey: config.geminiKey,\n    geminiModel: config.geminiModel,\n    ad_count: ads.length,\n    model_used: false,\n    winner_id: winner ? winner.representative_id : null,\n    winner_score: winner ? winner.final_score : null,\n    creatives,\n    ads,\n  },\n}];\n"
+      },
+      "notes": "Same rules as analysis/score_ads.py. The model does not run inside this node.",
+      "notesInFlow": true
+    },
+    {
+      "id": "gemini-key-set",
+      "name": "Gemini key set?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        980,
+        200
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "has-key",
+              "leftValue": "={{ $json.geminiKey && $json.geminiKey !== 'PASTE_GEMINI_KEY' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "build-gemini-body",
+      "name": "Build Gemini body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        40
+      ],
+      "parameters": {
+        "jsCode": "\nconst base = $input.first().json;\nconst packed = base.creatives.map((creative) => ({\n  creative_id: creative.representative_id,\n  primary_text: creative.primary_text,\n  deterministic_score: creative.score,\n}));\nconst instructions = [\n  'You are reading MySivi ads for a media buyer. Do not pick a winner.',\n  'Do not invent impressions, spend, CTR, or CAC. India commercial ads do not show those here.',\n  'For each creative return creative_id unchanged, hook_en, body_en, angle, score_delta, quote, delta_reason.',\n  'hook_en and body_en are an English reading of the primary text. If it is already English, copy it.',\n  'angle is one of: generic_ai, mother_tongue, price, social_proof, time_bound.',\n  'score_delta is an integer from -8 to 8. Use 0 unless a phrase in the primary text changes the read in a way the numbers missed.',\n  'quote must be copied from primary_text. If you cannot quote, score_delta must be 0.',\n  'delta_reason is one sentence.',\n  'Return one JSON object and nothing else. The object has a single key, creatives, whose value is the array. Do not return a bare array.',\n].join(' ');\nreturn [{\n  json: {\n    ...base,\n    geminiBody: {\n      contents: [{ role: 'user', parts: [{ text: instructions + '\\n\\n' + JSON.stringify(packed) }] }],\n      generationConfig: {\n        temperature: 0.2,\n        responseMimeType: 'application/json',\n      },\n    },\n  },\n}];\n"
+      }
+    },
+    {
+      "id": "ask-gemini",
+      "name": "Ask Gemini",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1420,
+        40
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/{{ $('Config').first().json.geminiModel }}:generateContent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-goog-api-key",
+              "value": "={{ $('Config').first().json.geminiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.geminiBody) }}",
+        "options": {
+          "timeout": 60000,
+          "response": {
+            "neverError": true
+          }
+        }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "One call for the whole set. A bad key, a timeout, or a 4xx still continues into the read, on the arithmetic score.",
+      "notesInFlow": true
+    },
+    {
+      "id": "apply-the-model-delta",
+      "name": "Apply the model delta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1640,
+        40
+      ],
+      "parameters": {
+        "jsCode": "/**\n * Same scoring rules as analysis/score_ads.py.\n * Kept in JS because the n8n Code node runs this, not Python.\n */\n\nconst REGIONAL = /[\\u0900-\\u0D7F]/;\nconst NAMED_LANGUAGE = /\\b(bangla|kannada|tamil|telugu|marathi|hindi)\\b/i;\nconst RUPEE_ONE = /(?:₹|rs\\.?)\\s*1(?!\\d)/i;\nconst TIME_15 = /15\\s*(?:minute|min|ನಿಮಿಷ)/i;\nconst PROOF_LAKH = /லட்ச|lakh/i;\n\nfunction parseDay(value) {\n  return new Date(`${String(value).slice(0, 10)}T00:00:00Z`);\n}\n\nfunction daysLive(startedOn, asOf) {\n  const ms = parseDay(asOf) - parseDay(startedOn);\n  return Math.round(ms / 86400000);\n}\n\nfunction normalizeCopy(text) {\n  let out = \"\";\n  for (const ch of text || \"\") {\n    if (ch === \"\\uFE0F\" || ch === \"\\u200D\") continue;\n    const code = ch.codePointAt(0);\n    // Emoji and other symbols. Letters, including Indic, stay.\n    if (\n      (code >= 0x1f000 && code <= 0x1faff) ||\n      (code >= 0x2600 && code <= 0x27bf) ||\n      (code >= 0x2300 && code <= 0x23ff) ||\n      code === 0xfe0f ||\n      code === 0x200d\n    ) {\n      continue;\n    }\n    out += ch;\n  }\n  return out.replace(/\\s+/g, \" \").trim().toLowerCase();\n}\n\nfunction isCompetitor(ad) {\n  const name = (ad.page_name || \"\").toLowerCase();\n  const text = (ad.primary_text || \"\").toLowerCase();\n  return name.includes(\"pw talk\") || text.includes(\"physicswallah\");\n}\n\nfunction hasRupeeOne(text) {\n  return RUPEE_ONE.test(text || \"\");\n}\n\nfunction specificity(text) {\n  let score = 0;\n  if (TIME_15.test(text || \"\")) score += 6;\n  if (PROOF_LAKH.test(text || \"\") && /40/.test(text || \"\")) score += 6;\n  if (REGIONAL.test(text || \"\") || NAMED_LANGUAGE.test(text || \"\")) score += 3;\n  return Math.min(15, score);\n}\n\nfunction survivalPoints(days) {\n  if (days >= 180) return 25;\n  if (days >= 120) return 21;\n  if (days >= 90) return 17;\n  if (days >= 60) return 13;\n  if (days >= 30) return 8;\n  if (days >= 14) return 4;\n  return 1;\n}\n\nfunction repetitionPoints(count) {\n  if (count >= 8) return 15;\n  if (count >= 5) return 12;\n  if (count >= 3) return 8;\n  if (count >= 2) return 4;\n  return 1;\n}\n\nfunction deliveryPoints(bestPosition, nCards) {\n  if (nCards <= 1) return 30;\n  const raw = Math.round((30 * (nCards - bestPosition)) / (nCards - 1));\n  return Math.max(0, raw);\n}\n\nfunction rankSpan(ads, declared) {\n  let span = Math.max(ads.length, Number(declared) || 0, 1);\n  ads.forEach((ad, index) => {\n    const position = Number(ad.position) || index + 1;\n    if (position > span) span = position;\n  });\n  return span;\n}\n\nfunction repetitionCount(members) {\n  const rows = members.length;\n  const coll = members.reduce((max, member) => {\n    const value = Number(member.collation_count) || 0;\n    return value > max ? value : max;\n  }, 0);\n  return Math.max(rows, coll);\n}\n\nfunction scoreCreatives(ads, asOf, rankSpanOverride) {\n  const nCards = rankSpan(ads, rankSpanOverride);\n  const groups = new Map();\n  ads.forEach((ad, index) => {\n    if (isCompetitor(ad) || !(ad.primary_text || \"\").trim()) return;\n    const positioned = ad.position ? ad : { ...ad, position: index + 1 };\n    const key = normalizeCopy(positioned.primary_text);\n    if (!groups.has(key)) groups.set(key, []);\n    groups.get(key).push(positioned);\n  });\n\n  const creatives = [];\n  for (const [key, members] of groups) {\n    const rep = members.reduce((a, b) => (a.position < b.position ? a : b));\n    const oldest = members.reduce((a, b) => {\n      if (a.started_on !== b.started_on) return a.started_on < b.started_on ? a : b;\n      return a.position <= b.position ? a : b;\n    });\n    const text = rep.primary_text;\n    const maxDays = Math.max(...members.map((m) => daysLive(m.started_on, asOf)));\n    const copies = repetitionCount(members);\n    const parts = {\n      delivery: deliveryPoints(rep.position, nCards),\n      survival: survivalPoints(maxDays),\n      repetition: repetitionPoints(copies),\n      offer: hasRupeeOne(text) ? 15 : 0,\n      specificity: specificity(text),\n    };\n    creatives.push({\n      copy_key: key,\n      primary_text: text,\n      score: Object.values(parts).reduce((sum, n) => sum + n, 0),\n      parts,\n      best_position: rep.position,\n      representative_id: String(rep.library_id),\n      oldest_id: String(oldest.library_id),\n      oldest_started_on: oldest.started_on,\n      max_days: maxDays,\n      copies,\n      library_ids: members\n        .slice()\n        .sort((a, b) => a.position - b.position)\n        .map((m) => String(m.library_id)),\n      pages: [...new Set(members.map((m) => m.page_name || \"\"))].sort(),\n      headline_has_rupee: members.some((m) => hasRupeeOne(m.headline || \"\")),\n    });\n  }\n  creatives.sort((a, b) => b.score - a.score || a.best_position - b.best_position || b.max_days - a.max_days);\n  return creatives;\n}\n\nfunction applyDeltas(creatives, deltas) {\n  const byId = new Map();\n  for (const item of deltas || []) {\n    if (item.creative_id) byId.set(String(item.creative_id), item);\n  }\n  const adjusted = creatives.map((creative) => {\n    const proposal = byId.get(creative.representative_id) || byId.get(creative.copy_key) || {};\n    let raw = Number.parseInt(proposal.score_delta, 10);\n    if (Number.isNaN(raw)) raw = 0;\n    const quote = String(proposal.quote || \"\").trim();\n    const quoted = quote && creative.primary_text.toLowerCase().includes(quote.toLowerCase());\n    const delta = quoted ? Math.max(-8, Math.min(8, raw)) : 0;\n    return {\n      ...creative,\n      hook_en: typeof proposal.hook_en === \"string\" ? proposal.hook_en : creative.hook_en || \"\",\n      body_en: typeof proposal.body_en === \"string\" ? proposal.body_en : creative.body_en || \"\",\n      angle: typeof proposal.angle === \"string\" ? proposal.angle : creative.angle || \"\",\n      model_delta: delta,\n      model_reason: delta ? proposal.delta_reason || \"\" : \"\",\n      final_score: Math.max(0, Math.min(100, creative.score + delta)),\n    };\n  });\n  adjusted.sort(\n    (a, b) => b.final_score - a.final_score || a.best_position - b.best_position || b.max_days - a.max_days,\n  );\n  return adjusted;\n}\n\nfunction parseModelPayload(text) {\n  const cleaned = String(text || \"\")\n    .trim()\n    .replace(/^```(?:json)?\\s*/i, \"\")\n    .replace(/\\s*```$/, \"\");\n  if (!cleaned) return [];\n  const parsed = JSON.parse(cleaned);\n  if (Array.isArray(parsed)) return parsed;\n  if (parsed && Array.isArray(parsed.creatives)) return parsed.creatives;\n  if (parsed && Array.isArray(parsed.deltas)) return parsed.deltas;\n  return [];\n}\n\nfunction splitCopy(text) {\n  const lines = String(text || \"\")\n    .split(\"\\n\")\n    .map((line) => line.trim())\n    .filter(Boolean);\n  const tags = lines.filter((line) => line.startsWith(\"#\") || (line.split(\"#\").length - 1 >= 2 && line.length < 90));\n  const main = lines.filter((line) => !tags.includes(line));\n  const blob = main.join(\" \");\n  const parts = blob.split(/(?<=[!?।])\\s+|(?<=\\.)\\s+/);\n  return {\n    hook: (parts[0] || \"\").trim(),\n    body: parts.slice(1).join(\" \").trim(),\n    hashtags: tags.join(\" \"),\n  };\n}\n\nfunction normalizeApifyItem(raw, index) {\n  const snap = raw.snapshot || {};\n  const bodyObj = snap.body;\n  let body = \"\";\n  if (typeof bodyObj === \"string\") body = bodyObj;\n  else if (bodyObj && typeof bodyObj.text === \"string\") body = bodyObj.text;\n  const cards = Array.isArray(snap.cards) ? snap.cards : [];\n  const card = cards[0] || {};\n  if (!body && card.body) body = card.body;\n  let started = raw.start_date_formatted || raw.started_on || null;\n  if (!started && typeof raw.start_date === \"number\") {\n    started = new Date(raw.start_date * 1000).toISOString().slice(0, 10);\n  }\n  const videos = snap.videos || card.video_hd_url || card.video_sd_url;\n  return {\n    library_id: String(raw.ad_archive_id || raw.adArchiveID || raw.library_id || \"\"),\n    position: Number(raw.position) || index + 1,\n    started_on: started ? String(started).slice(0, 10) : null,\n    page_name: raw.page_name || snap.page_name || card.title || \"\",\n    primary_text: String(body || \"\").trim(),\n    headline: snap.title || card.title || raw.headline || \"\",\n    cta_text: snap.cta_text || card.cta_text || raw.cta_text || \"\",\n    cta_type: snap.cta_type || card.cta_type || \"\",\n    link_url: snap.link_url || card.link_url || \"\",\n    is_video: String(snap.display_format || \"\").toUpperCase() === \"VIDEO\" || Boolean(videos),\n    collation_count: raw.collation_count || raw.collationCount || null,\n    is_active: raw.is_active !== false,\n  };\n}\n\n\nconst base = $('Score the pull').first().json;\nconst payload = $json || {};\nlet deltas = [];\nlet modelError = '';\nconst httpError = payload.error;\nif (httpError) {\n  modelError = typeof httpError === 'string' ? httpError : (httpError.message || JSON.stringify(httpError));\n} else {\n  try {\n    const parts = payload.candidates?.[0]?.content?.parts || [];\n    const text = parts.map((part) => part.text || '').join('');\n    if (!text.trim()) {\n      modelError = 'Gemini returned no text. Rank left on the arithmetic.';\n    } else {\n      deltas = parseModelPayload(text);\n    }\n  } catch (error) {\n    modelError = error.message || String(error);\n  }\n}\nconst creatives = applyDeltas(base.creatives, deltas).map((creative) => {\n  const previous = base.creatives.find((item) => item.representative_id === creative.representative_id) || {};\n  return { ...previous, ...creative };\n});\nconst winner = creatives[0] || null;\nreturn [{\n  json: {\n    ...base,\n    creatives,\n    winner_id: winner ? winner.representative_id : null,\n    winner_score: winner ? winner.final_score : null,\n    model_used: !modelError,\n    model_error: modelError,\n  },\n}];\n"
+      }
+    },
+    {
+      "id": "build-the-read",
+      "name": "Build the read",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1640,
+        280
+      ],
+      "parameters": {
+        "jsCode": "\nconst row = $input.first().json;\nconst lines = [];\nlines.push('# MySivi ad rank, as of ' + row.as_of);\nlines.push('Mode: ' + row.mode + '. Ads scored: ' + row.ad_count + '.');\nlines.push('Winner: library ID ' + row.winner_id + ' at ' + row.winner_score + '.');\nlines.push('Model used: ' + (row.model_used ? 'yes' : 'no') + '.');\nif (row.model_error) lines.push('Model error (rank left on the arithmetic): ' + row.model_error);\nlines.push('');\nlines.push('This rank is the arithmetic in the Code node. A model delta is applied only when the quote is copied from the ad, and only inside -8 to +8.');\nlines.push('');\nfor (const creative of row.creatives) {\n  lines.push('## ' + creative.final_score + ' (base ' + creative.score + ', delta ' + creative.model_delta + ')');\n  lines.push('Library ID ' + creative.representative_id + ', position ' + creative.best_position + ', ' + creative.copies + ' copies, ' + creative.max_days + ' days.');\n  lines.push('Hook: ' + (creative.hook || ''));\n  if (creative.hook_en) lines.push('Hook in English: ' + creative.hook_en);\n  lines.push('Body: ' + (creative.body || ''));\n  if (creative.body_en) lines.push('Body in English: ' + creative.body_en);\n  if (creative.headline) lines.push('Headline: ' + creative.headline);\n  if (creative.cta_text) lines.push('CTA: ' + creative.cta_text);\n  if (creative.model_reason) lines.push('Delta reason: ' + creative.model_reason);\n  lines.push('');\n}\nreturn [{ json: { ...row, report_markdown: lines.join('\\n') } }];\n"
+      },
+      "notes": "Open report_markdown on this item. The PDF in submission/ is the written version of the sample run.",
+      "notesInFlow": true
+    },
+    {
+      "id": "how-to-read-this",
+      "name": "How to read this",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -900,
+        -160
+      ],
+      "parameters": {
+        "width": 640,
+        "height": 300,
+        "content": "## MySivi Ad Library, control finder\n\nSample mode scores the 11 Nov 2026 pull and spends nothing. That run is the PDF.\n\nLive mode: paste an Apify token, set mode to apify, set asOf to today, leave maxAds at 12. No residential proxy. scrapeAdDetails is off.\n\nPaste a Gemini key only if you want a translation and a clamped nudge. A quote that is not in the ad scores 0. The rank does not come from the model.\n\nBest ad in the saved pull: library ID 1112422725088441, score 85."
+      }
+    }
+  ],
+  "connections": {
+    "When clicking Execute workflow": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Sample or live?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample or live?": {
+      "main": [
+        [
+          {
+            "node": "Start Apify run",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Load 11 Nov pull",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load 11 Nov pull": {
+      "main": [
+        [
+          {
+            "node": "Score the pull",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Apify run": {
+      "main": [
+        [
+          {
+            "node": "Run succeeded?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run succeeded?": {
+      "main": [
+        [
+          {
+            "node": "Fetch dataset items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Run died?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run died?": {
+      "main": [
+        [
+          {
+            "node": "Run failed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Poll Apify run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Poll Apify run": {
+      "main": [
+        [
+          {
+            "node": "Run succeeded?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch dataset items": {
+      "main": [
+        [
+          {
+            "node": "Shape Apify rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shape Apify rows": {
+      "main": [
+        [
+          {
+            "node": "Score the pull",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score the pull": {
+      "main": [
+        [
+          {
+            "node": "Gemini key set?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini key set?": {
+      "main": [
+        [
+          {
+            "node": "Build Gemini body",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build the read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Gemini body": {
+      "main": [
+        [
+          {
+            "node": "Ask Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask Gemini": {
+      "main": [
+        [
+          {
+            "node": "Apply the model delta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply the model delta": {
+      "main": [
+        [
+          {
+            "node": "Build the read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
